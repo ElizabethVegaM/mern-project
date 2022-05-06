@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const placeRoutes = require("./routes/places-routes");
 const userRoutes = require("./routes/users-routes");
@@ -28,6 +29,8 @@ app.use((error, req, res, next) => {
 }); // => error handler middleware
 
 mongoose
-  .connect()
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@merncluster.mnhcw.mongodb.net/places?retryWrites=true&w=majority`
+  )
   .then(() => app.listen(5000))
   .catch((err) => console.error(err));
