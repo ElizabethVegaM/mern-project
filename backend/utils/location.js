@@ -6,11 +6,11 @@ const API_KEY = 'jsdyjrbvksbvdkfslrgDVDfn32v2g4yh'; //change for real Google Map
 const getCoordsForAddress = async (address) => {
   return {
     lat: 40.7484474,
-    lng: -73.9871516
+    lng: -73.9871516,
   };
 
   //using real Google maps API
-/*   const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${API_KEY}`);
+  /*   const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${API_KEY}`);
 
   const data = response.data;
 
@@ -21,10 +21,6 @@ const getCoordsForAddress = async (address) => {
   const coordinates = data.results.geometry.location;
 
   return coordinates; */
-
 };
 
 module.exports = getCoordsForAddress;
-
-
-
