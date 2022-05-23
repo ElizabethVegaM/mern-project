@@ -9,12 +9,11 @@ const getUsers = async (req, res, next) => {
     users = await User.find({}, '-password');
   } catch (err) {
     const error = new HttpError(
-      'Fetching users failed, please try again later',
+      'Fetching users failed, please try again later.',
       500
     );
     return next(error);
   }
-
   res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
@@ -49,15 +48,19 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
     password,
+    image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
     places: [],
   });
 
   try {
+    console.log(createdUser);
     await createdUser.save();
   } catch (err) {
-    const error = new HttpError('Signing up failed, please try again.', 500);
+    const error = new HttpError(
+      'Signing up failed, please try again later. al hacer save',
+      500
+    );
     return next(error);
   }
 
@@ -72,7 +75,10 @@ const login = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
-    const error = new HttpError('Login in failed, please try again later', 500);
+    const error = new HttpError(
+      'Loggin in failed, please try again later.',
+      500
+    );
     return next(error);
   }
 
@@ -84,7 +90,10 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ message: 'Logged in!' });
+  res.json({
+    message: 'Logged in!',
+    user: existingUser.toObject({ getters: true }),
+  });
 };
 
 exports.getUsers = getUsers;
